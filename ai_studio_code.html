@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Etsy Profit Calculator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen py-10 px-4 sm:px-6 lg:px-8">
+
+  <div class="max-w-6xl mx-auto">
+    <!-- Header -->
+    <header class="text-center mb-10">
+      <div class="inline-flex items-center gap-2 bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-3">
+        <span>🛒</span> Etsy Seller Toolkit
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        Etsy Profit Calculator
+      </h1>
+      <p class="text-slate-500 mt-2 max-w-2xl mx-auto text-sm sm:text-base">
+        Calculate your real profit, Etsy fees, shipping expenses, and ROI before listing.
+      </p>
+    </header>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <!-- Left Column: Inputs -->
+      <div class="lg:col-span-7 space-y-6">
+
+        <!-- 1. Pricing -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+          <h2 class="text-base font-bold text-slate-900 flex items-center gap-2 mb-4 pb-2 border-b border-slate-100">
+            <span class="w-6 h-6 rounded-md bg-orange-500 text-white flex items-center justify-center text-xs">1</span>
+            Listing & Pricing
+          </h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-slate-600 mb-1">Item Sale Price ($)</label>
+              <div class="relative">
+                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400 font-medium">$</span>
+                <input id="itemPrice" type="number" step="0.01" min="0" value="45.00" class="w-full pl-8 pr-3 py-2.5 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-orange-500 font-semibold text-slate-800" />
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-slate-600 mb-1">Shipping Charged to Buyer ($)</label>
+              <div class="relative">
+                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400 font-medium">$</span>
+                <input id="shippingCharged" type="number" step="0.01" min="0" value="5.00" class="w-full pl-8 pr-3 py-2.5 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-orange-500 font-semibold text-slate-800" />
+              </div>
+            </div>
+
+            <div class="sm:col-span-2">
+              <label class="block text-xs font-semibold text-slate-600 mb-1">Shop Sale / Discount (%)</label>
+              <div class="relative">
+                <input id="discountPercent" type="number" step="1" min="0" max="100" value="0" class="w-full pl-3 pr-8 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-orange-500 font-medium text-slate-800" />
+                <span class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 font-medium">%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Costs -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+          <h2 class="text-base font-bold text-slate-900 flex items-center gap-2 mb-4 pb-2 border-b border-slate-100">
+            <span class="w-6 h-6 rounded-md bg-blue-500 text-white flex items-center justify-center text-xs">2</span>
+            Item & Fulfillment Costs
+          </h2>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-slate-600 mb-1">Item Cost / COGS ($)</label>
+              <div class="relative">
+                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400 font-medium">$</span>
+                <input id="itemCost" type="number" step="0.01" min="0" value="12.00" class="w-full pl-8 pr-3 py-2.5 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 font-semibold text-slate-800" />
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-slate-600 mb-1">Your Shipping Cost ($)</label>
+              <div class="relative">
+                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400 font-medium">$</span>
+                <input id="shippingCost" type="number" step="0.01" min="0" value="4.50" class="w-full pl-8 pr-3 py-2.5 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 font-semibold text-slate-800" />
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-slate-600 mb-1">Packaging ($)</label>
+              <div class="relative">
+                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400 font-medium">$</span>
+                <input id="packagingCost" type="number" step="0.01" min="0" value="1.00" class="w-full pl-8 pr-3 py-2.5 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 font-semibold text-slate-800" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Etsy Fees -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+          <h2 class="text-base font-bold text-slate-900 flex items-center gap-2 mb-4 pb-2 border-b border-slate-100">
+            <span class="w-6 h-6 rounded-md bg-purple-500 text-white flex items-center justify-center text-xs">3</span>
+            Etsy Fees & Marketing
+          </h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-slate-600 mb-1">Etsy Offsite Ads</label>
+              <select id="offsiteAds" class="w-full px-3 py-2.5 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-purple-500 font-semibold text-slate-800 bg-white">
+                <option value="0">Off / Not from Offsite Ads (0%)</option>
+                <option value="0.12">Opt-in / High volume (12%)</option>
+                <option value="0.15">Standard seller (15%)</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-slate-600 mb-1">Onsite Ad Cost / Sale ($)</label>
+              <div class="relative">
+                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400 font-medium">$</span>
+                <input id="adCost" type="number" step="0.01" min="0" value="0.00" class="w-full pl-8 pr-3 py-2.5 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-purple-500 font-semibold text-slate-800" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Column: Results Card -->
+      <div class="lg:col-span-5 space-y-6 lg:sticky lg:top-6">
+        <div class="bg-white rounded-2xl p-6 shadow-md border border-slate-200">
+          <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+            <h3 class="font-bold text-slate-900 text-lg">Profit Summary</h3>
+            <span id="badgeStatus" class="px-2.5 py-1 text-xs font-bold rounded-full bg-emerald-100 text-emerald-700">Profitable</span>
+          </div>
+
+          <div class="my-5 p-4 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white shadow-inner">
+            <span class="text-xs font-semibold uppercase tracking-wider text-emerald-100">Net Profit</span>
+            <div id="netProfitDisplay" class="text-3xl sm:text-4xl font-extrabold mt-1 tracking-tight">$0.00</div>
+            <div class="flex items-center gap-4 mt-3 pt-3 border-t border-emerald-400/40 text-xs text-emerald-50 font-medium">
+              <div>Margin: <span id="profitMarginDisplay" class="font-bold text-white text-sm">0%</span></div>
+              <div>•</div>
+              <div>ROI: <span id="roiDisplay" class="font-bold text-white text-sm">0%</span></div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3 mb-5">
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <span class="text-[11px] font-semibold text-slate-500 uppercase">Total Revenue</span>
+              <div id="revenueDisplay" class="text-lg font-bold text-slate-800 mt-0.5">$0.00</div>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <span class="text-[11px] font-semibold text-slate-500 uppercase">Total Expenses</span>
+              <div id="totalCostsDisplay" class="text-lg font-bold text-rose-600 mt-0.5">$0.00</div>
+            </div>
+          </div>
+
+          <!-- Cost Distribution Bar -->
+          <div class="mb-5">
+            <div class="w-full h-3 rounded-full overflow-hidden flex bg-slate-200">
+              <div id="barCogs" class="h-full bg-blue-500 transition-all duration-300"></div>
+              <div id="barShip" class="h-full bg-sky-400 transition-all duration-300"></div>
+              <div id="barFees" class="h-full bg-purple-500 transition-all duration-300"></div>
+              <div id="barProfit" class="h-full bg-emerald-500 transition-all duration-300"></div>
+            </div>
+            <div class="flex items-center justify-between text-[10px] text-slate-500 mt-1.5 px-0.5">
+              <span>Item Cost</span>
+              <span>Shipping</span>
+              <span>Etsy Fees</span>
+              <span>Profit</span>
+            </div>
+          </div>
+
+          <!-- Breakdown Details -->
+          <div class="border-t border-slate-100 pt-4 space-y-2.5 text-xs text-slate-600">
+            <div class="flex justify-between">
+              <span>Listing Fee</span>
+              <span id="feeListing" class="font-semibold text-slate-900">$0.20</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Transaction Fee (6.5%)</span>
+              <span id="feeTransaction" class="font-semibold text-slate-900">$0.00</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Payment Fee (3% + $0.25)</span>
+              <span id="feePayment" class="font-semibold text-slate-900">$0.00</span>
+            </div>
+            <div id="offsiteRow" class="flex justify-between hidden">
+              <span>Offsite Ads Fee</span>
+              <span id="feeOffsite" class="font-semibold text-slate-900">$0.00</span>
+            </div>
+            <div class="flex justify-between font-medium text-purple-700 bg-purple-50 px-2 py-1.5 rounded-lg border border-purple-100">
+              <span class="font-bold">Total Etsy Fees</span>
+              <span id="feeTotalEtsy" class="font-bold">$0.00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const itemPrice = document.getElementById('itemPrice');
+    const shippingCharged = document.getElementById('shippingCharged');
+    const discountPercent = document.getElementById('discountPercent');
+    const itemCost = document.getElementById('itemCost');
+    const shippingCost = document.getElementById('shippingCost');
+    const packagingCost = document.getElementById('packagingCost');
+    const offsiteAds = document.getElementById('offsiteAds');
+    const adCost = document.getElementById('adCost');
+
+    const netProfitDisplay = document.getElementById('netProfitDisplay');
+    const profitMarginDisplay = document.getElementById('profitMarginDisplay');
+    const roiDisplay = document.getElementById('roiDisplay');
+    const revenueDisplay = document.getElementById('revenueDisplay');
+    const totalCostsDisplay = document.getElementById('totalCostsDisplay');
+    const badgeStatus = document.getElementById('badgeStatus');
+
+    const feeListing = document.getElementById('feeListing');
+    const feeTransaction = document.getElementById('feeTransaction');
+    const feePayment = document.getElementById('feePayment');
+    const feeOffsite = document.getElementById('feeOffsite');
+    const feeTotalEtsy = document.getElementById('feeTotalEtsy');
+    const offsiteRow = document.getElementById('offsiteRow');
+
+    const barCogs = document.getElementById('barCogs');
+    const barShip = document.getElementById('barShip');
+    const barFees = document.getElementById('barFees');
+    const barProfit = document.getElementById('barProfit');
+
+    const fmt = (num) => '$' + Number(num).toFixed(2);
+
+    function calculate() {
+      const price = parseFloat(itemPrice.value) || 0;
+      const shipCharged = parseFloat(shippingCharged.value) || 0;
+      const discount = Math.min(100, Math.max(0, parseFloat(discountPercent.value) || 0));
+
+      const cogs = parseFloat(itemCost.value) || 0;
+      const shipPay = parseFloat(shippingCost.value) || 0;
+      const pack = parseFloat(packagingCost.value) || 0;
+
+      const offsiteRate = parseFloat(offsiteAds.value) || 0;
+      const adSpend = parseFloat(adCost.value) || 0;
+
+      const totalRevenue = (price * (1 - discount / 100)) + shipCharged;
+
+      if (totalRevenue <= 0) return;
+
+      const listing = 0.20;
+      const transaction = totalRevenue * 0.065;
+      const payment = (totalRevenue * 0.03) + 0.25;
+      const offsite = totalRevenue * offsiteRate;
+      const totalFees = listing + transaction + payment + offsite + adSpend;
+
+      const totalCosts = cogs + shipPay + pack + totalFees;
+      const profit = totalRevenue - totalCosts;
+      const margin = (profit / totalRevenue) * 100;
+      const roi = totalCosts > 0 ? (profit / totalCosts) * 100 : 0;
+
+      revenueDisplay.textContent = fmt(totalRevenue);
+      totalCostsDisplay.textContent = fmt(totalCosts);
+      netProfitDisplay.textContent = fmt(profit);
+      profitMarginDisplay.textContent = `${margin.toFixed(1)}%`;
+      roiDisplay.textContent = `${roi.toFixed(1)}%`;
+
+      feeListing.textContent = fmt(listing);
+      feeTransaction.textContent = fmt(transaction);
+      feePayment.textContent = fmt(payment);
+      feeTotalEtsy.textContent = fmt(totalFees);
+
+      if (offsite > 0) {
+        offsiteRow.classList.remove('hidden');
+        feeOffsite.textContent = fmt(offsite);
+      } else {
+        offsiteRow.classList.add('hidden');
+      }
+
+      badgeStatus.textContent = profit >= 0 ? 'Profitable' : 'Loss';
+      badgeStatus.className = profit >= 0 
+        ? 'px-2.5 py-1 text-xs font-bold rounded-full bg-emerald-100 text-emerald-700' 
+        : 'px-2.5 py-1 text-xs font-bold rounded-full bg-rose-100 text-rose-700';
+
+      barCogs.style.width = `${Math.max(0, (cogs / totalRevenue) * 100)}%`;
+      barShip.style.width = `${Math.max(0, ((shipPay + pack) / totalRevenue) * 100)}%`;
+      barFees.style.width = `${Math.max(0, (totalFees / totalRevenue) * 100)}%`;
+      barProfit.style.width = `${Math.max(0, (profit / totalRevenue) * 100)}%`;
+    }
+
+    [itemPrice, shippingCharged, discountPercent, itemCost, shippingCost, packagingCost, offsiteAds, adCost].forEach(el => {
+      el.addEventListener('input', calculate);
+      el.addEventListener('change', calculate);
+    });
+
+    calculate();
+  </script>
+</body>
+</html>
